@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="15dp"
+    android:layout_height="215dp"
     android:layout_margin="10dp"
-    android:background="#15222E"
+    android:background="@drawable/rounded_corner"
+    android:padding="15dp"
     tools:ignore="MissingClass">
 
 
     <TextView
         android:id="@+id/place"
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="114dp"
@@ -28,142 +27,129 @@
         app:layout_goneMarginTop="12dp" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="53dp"
-        android:layout_marginEnd="220dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout4">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/t1im"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:id="@+id/t1im"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="8dp"
             app:srcCompat="@drawable/cruxlogo" />
 
         <TextView
+            android:id="@+id/team1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Team 1"
-            android:id="@+id/team1"
             android:textColor="#CFD1D3"
             android:textSize="12dp" />
 
     </LinearLayout>
 
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/linearLayout4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="89dp"
-        android:layout_marginEnd="220dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="22dp"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/t2im"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:id="@+id/t2im"
-            android:layout_marginLeft="16dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginRight="8dp"
             app:srcCompat="@drawable/cruxlogo" />
 
         <TextView
+            android:id="@+id/team2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Team 2"
-            android:id="@+id/team2"
             android:textColor="#CFD1D3"
             android:textSize="12dp" />
 
     </LinearLayout>
 
-
     <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/linearLayoutCompat"
         android:layout_width="2.5dp"
-        android:layout_height="40dp"
+        android:layout_height="65dp"
         android:layout_marginTop="41dp"
         android:layout_marginBottom="41dp"
         android:background="#24303D"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.032" />
+        app:layout_constraintVertical_bias="0.397" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="61dp"
-        android:layout_marginRight="29.5dp"
-        android:layout_marginLeft="243.5dp"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:textSize="12dp"
             android:id="@+id/time"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="23:00"
             android:textColor="#CFD1D3"
-            android:text="23:00" />
+            android:textSize="12dp" />
 
         <TextView
-            android:textSize="16dp"
             android:id="@+id/date"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="5 June"
             android:textColor="#CFD1D3"
-            android:text="5 June" />
+            android:textSize="16dp" />
 
 
     </LinearLayout>
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="304dp"
+        android:id="@+id/linearLayoutCompat3"
+        android:layout_width="match_parent"
         android:layout_height="2.5dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="140dp"
         android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
         android:background="#24303D"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="201dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.924"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginRight="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
             android:id="@+id/rate_team"
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:gravity="center"
             android:text="DC"
@@ -171,7 +157,7 @@
 
         <TextView
             android:id="@+id/rate"
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginLeft="30dp"
             android:gravity="center"
@@ -180,7 +166,7 @@
 
         <TextView
             android:id="@+id/rate2"
-            android:layout_width="30dp"
+            android:layout_width="wrap_content"
             android:layout_height="24dp"
             android:layout_marginLeft="30dp"
             android:gravity="center"
@@ -189,6 +175,13 @@
 
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.65" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
