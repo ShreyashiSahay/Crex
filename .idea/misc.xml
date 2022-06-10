@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/drawable/rounded_corner.xml" value="0.236" />
+        <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/drawable/rounded_corner1.xml" value="0.236" />
+        <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/drawable/rounded_corner2.xml" value="0.236" />
+        <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/drawable/rounded_corner3.xml" value="0.236" />
         <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/layout/activity_main.xml" value="0.24547101449275363" />
         <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/layout/fragment_finished.xml" value="0.24547101449275363" />
         <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/layout/fragment_upcoming.xml" value="0.24547101449275363" />

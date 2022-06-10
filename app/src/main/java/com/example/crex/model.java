@@ -1,91 +1,21 @@
-package com.example.crex;
-//Model class for multiple layout recycler view
+package com.example.crexproject.models;
 
+public class Model {
 
-import android.net.Uri;
+    public String club_date,team1,team2,t1Flag,t2Flag,match_no,match_date,time_stamp;
+    public String odds_rate,odds_rate2,rate_team;
 
-public class model {
-public String comdate;
+    private int viewType;
+    private int odds;
 
-
-
-    public static final int LayoutOne = 0;
-    public static final int LayoutTwo = 1;
-    public int viewType;
-
-    public String place;
-
-    public String team1;
-    public String team2;
-    public String t1im;  //This is the first image
-    public String t2im;  //This is the second image
-    public String date;
-    public Long time;
-    public String rate_team="";
-    public String rate="";
-    public String rate2="";
-
-
-    //Creating constructor for first layout
-
-    public model(){
-
+    public int getOdds() {
+        return odds;
     }
 
-    public model(int viewType, String comdate){
-        this.viewType= viewType;
-        this.comdate=comdate;
+    public void setOdds(int odds) {
+        this.odds = odds;
     }
 
-    public String getComdate() {
-        return comdate;
-    }
-
-    public void setComdate(String comdate) {
-        this.comdate = comdate;
-    }
-
-
-    public String getT1im() {
-        return t1im;
-    }
-
-    public void setT1im(String t1im) {
-        this.t1im = t1im;
-    }
-
-    public String getT2im() {
-        return t2im;
-    }
-
-    public void setT2im(String t2im) {
-        this.t2im = t2im;
-    }
-
-    //creating constructor for second layout
-    public model(int viewType,String place,  String team1, String team2, String t1im, String t2im, String date, Long time, String rate_team, String rate, String rate2){
-        this.viewType= viewType;
-        this.place= place;
-        this.team1= team1;
-        this.team2= team2;
-        this.t1im= t1im;
-        this.t2im= t2im;
-        this.date= date;
-        this.time= time;
-        this.rate_team= rate_team;
-        this.rate= rate;
-        this.rate2= rate2;
-
-
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
 
     public int getViewType() {
         return viewType;
@@ -93,6 +23,54 @@ public String comdate;
 
     public void setViewType(int viewType) {
         this.viewType = viewType;
+    }
+
+    public Model(int viewType, int odds, String team1, String team2, String t1Flag, String t2Flag, String match_no, String match_date, String time_stamp, String odds_rate, String odds_rate2, String rate_team) {
+        this.viewType = viewType;
+        this.odds = odds;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.t1Flag = t1Flag;
+        this.t2Flag = t2Flag;
+        this.match_no = match_no;
+        this.match_date = match_date;
+        this.time_stamp = time_stamp;
+        this.odds_rate = odds_rate;
+        this.odds_rate2 = odds_rate2;
+        this.rate_team = rate_team;
+    }
+
+    public Model(int viewType, int odds, String team1, String team2, String t1Flag, String t2Flag, String match_no, String match_date, String time_stamp) {
+        this.viewType = viewType;
+        this.odds = odds;
+        this.team1 = team1;
+        this.team2 = team2;
+        this.t1Flag = t1Flag;
+        this.t2Flag = t2Flag;
+        this.match_no = match_no;
+        this.match_date = match_date;
+        this.time_stamp = time_stamp;
+    }
+
+    public Model(int viewType, String club_date) {
+        this.viewType = viewType;
+        this.club_date = club_date;
+    }
+
+    public String getOdds_rate() {
+        return odds_rate;
+    }
+
+    public void setOdds_rate(String odds_rate) {
+        this.odds_rate = odds_rate;
+    }
+
+    public String getOdds_rate2() {
+        return odds_rate2;
+    }
+
+    public void setOdds_rate2(String odds_rate2) {
+        this.odds_rate2 = odds_rate2;
     }
 
     public String getRate_team() {
@@ -103,27 +81,18 @@ public String comdate;
         this.rate_team = rate_team;
     }
 
-    public String getRate() {
-        return rate;
+
+    public String getClub_date() {
+        return club_date;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
-    }
-
-    public String getRate2() {
-        return rate2;
-    }
-
-    public void setRate2(String rate2) {
-        this.rate2 = rate2;
+    public void setClub_date(String club_date) {
+        this.club_date = club_date;
     }
 
     public String getTeam1() {
         return team1;
     }
-
-
 
     public void setTeam1(String team1) {
         this.team1 = team1;
@@ -137,29 +106,44 @@ public String comdate;
         this.team2 = team2;
     }
 
-
-
-
-
-
-
-
-
-
-
-    public String getDate() {
-        return date;
+    public String getT1Flag() {
+        return t1Flag;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setT1Flag(String t1Flag) {
+        this.t1Flag = t1Flag;
     }
 
-    public Long getTime() {
-        return time;
+    public String getT2Flag() {
+        return t2Flag;
     }
 
-    public void setTime(Long time) {
-        this.time = time;
+    public void setT2Flag(String t2Flag) {
+        this.t2Flag = t2Flag;
     }
+
+    public String getMatch_no() {
+        return match_no;
+    }
+
+    public void setMatch_no(String match_no) {
+        this.match_no = match_no;
+    }
+
+    public String getMatch_date() {
+        return match_date;
+    }
+
+    public void setMatch_date(String match_date) {
+        this.match_date = match_date;
+    }
+
+    public String getTime_stamp() {
+        return time_stamp;
+    }
+
+    public void setTime_stamp(String time_stamp) {
+        this.time_stamp = time_stamp;
+    }
+
 }

@@ -1,6 +1,4 @@
-package com.example.crex;
-
-import android.os.Bundle;
+package com.example.crexproject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,109 +18,134 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.crexproject.adapter.ModelAdapter;
+import com.example.crexproject.models.Model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
 
 public class Upcoming extends Fragment {
 
-    private static String JSON_URL= "https://mocki.io/v1/30786c0a-390e-41d5-9ad8-549ed26cba64";
-    public List<model> upcomingList;
-    public LinearLayoutManager linearLayoutManager;
-    public Adapter adapter1;
-    public RecyclerView recyclerView;
 
+    public static final String URL_API_UPCOMING = "https://mocki.io/v1/5ce5957e-eb98-46e0-a463-e59392856f68";
+    private static final String TAG = "Upcoming";
+
+    private RecyclerView recyclerView;
+    private List<Model> getModels = new ArrayList<>();
+    private ModelAdapter modelAdapter;
+    private RequestQueue mRequestQueue;
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upcoming, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_upcoming,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        //Confusion--> Here do we have to write method setContentView(R.layout.fragment_upcoming)???--> No, we don't bcoz already inflated
-        //Code for parsing simple JSON
         super.onViewCreated(view, savedInstanceState);
-        upcomingList = new ArrayList<>();
-        recyclerView=view.findViewById(R.id.recyclerView);
-        androidx.recyclerview.widget.LinearLayoutManager linearLayoutManager = new androidx.recyclerview.widget.LinearLayoutManager(getActivity());
-        adapter1= new Adapter(getActivity(),upcomingList);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter1);
-        extractData();
+
+        recyclerView = view.findViewById(R.id.rv_upcoming);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+        recyclerView.setHasFixedSize(true);
+        mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+        fetchJSON_data();
+
     }
 
-    private void extractData() {
+    private void fetchJSON_data() {
 
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JsonArrayRequest requestQueue = new JsonArrayRequest(Request.Method.GET, URL_API_UPCOMING, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET,JSON_URL,null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONArray res= response;
-                for (int i = 0; i < res.length(); i++) {
-                    try {
-                        JSONObject jsonObject = res.getJSONObject(i);
-                        Log.d("TAG", "onResponse: "+jsonObject);
+                            for (int i = 0; i < response.length(); i++) {
 
-                        model md = new model();
-                        md.setViewType(1);
-                        md.setComdate(jsonObject.getString("date"));
-                        upcomingList.add(md);
-                        Log.d("Check",jsonObject.getString("date"));
-                        JSONArray ja= jsonObject.getJSONArray("m");
+                                JSONObject fields = response.getJSONObject(i);
+                                JSONArray matches = fields.getJSONArray("m");
+                                String club_date = fields.getString("date");
+                                getModels.add(new Model(0,club_date));
 
-                        for(int j=0;j<ja.length();j++) {
-                            JSONObject jo = ja.getJSONObject(j);
-                            model md1 = new model();
-                            md1.setViewType(0);
-                            md1.setTeam1(jo.getString("t1"));
-                            md1.setTeam2(jo.getString("t2"));
-                            md1.setT1im(jo.getString("t1flag"));
-                            md1.setT2im(jo.getString("t2flag"));
-                            md1.setPlace(jo.getString("match_no"));
-                            md1.setDate(jo.getString("date"));
-                            md1.setTime(jo.getLong("t"));
-                            if(jsonObject.has("odds")){
-                                JSONObject jsonObject1=jsonObject.getJSONObject("odds");
+                                for(int j=0;j<matches.length();j++)
+                                {
+                                    JSONObject temp = matches.getJSONObject(j);
 
-                                md1.setRate(jsonObject1.getString("rate"));
-                                md1.setRate2(jsonObject1.getString("rate2"));
-                                md1.setRate_team(jsonObject1.getString("rate_team"));
+                                    String t1 = temp.getString("t1");
+                                    String t2 = temp.getString("t2");
+                                    String t1flag = temp.getString("t1flag");
+                                    String t2flag = temp.getString("t2flag");
+                                    String match_no = temp.getString("match_no");
+                                    String date = temp.getString("date");
+                                    String time_stamp = temp.getString("t");
+
+                                    if(temp.has("odds"))
+                                    {
+                                        JSONObject odds = temp.getJSONObject("odds");
+                                        String rate = odds.getString("rate");
+                                        String rate2 = odds.getString("rate2");
+                                        String rate_team = odds.getString("rate_team");
+                                        Log.d(TAG, "onResponse: "+rate+" "+rate2+" "+rate_team);
+                                        getModels.add(new Model(1, 1, t1, t2, t1flag, t2flag, match_no, getDate(date), time_in_AM_PM(Long.parseLong((time_stamp))), rate, rate2, rate_team));
+                                    }
+                                    else
+                                    {
+                                        getModels.add(new Model(1, 0, t1, t2, t1flag, t2flag, match_no, getDate(date), time_in_AM_PM(Long.parseLong((time_stamp)))));
+                                    }
+                                }
+
+
                             }
-                            //Here how to add the three nested fields, rate, rate2, rate_team
 
-                            upcomingList.add(md1);
+                            modelAdapter = new ModelAdapter(getContext(), getModels);
+                            recyclerView.setAdapter(modelAdapter);
+                            modelAdapter.notifyDataSetChanged();
 
+                        } catch (JSONException | ParseException e) {
+                            e.printStackTrace();
                         }
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-                }
-
-
-                adapter1.notifyDataSetChanged();
-
-            }
-        }, new Response.ErrorListener() {
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Volley", error.toString());
-
+                Log.d(TAG, "onErrorResponse: " + error.getMessage());
             }
         });
+        mRequestQueue.add(requestQueue);
 
-
-        requestQueue.add(jsonArrayRequest);
 
     }
 
 
+    private String getDate(String date) throws ParseException {
+
+        SimpleDateFormat df = new SimpleDateFormat("MM/DD/yyyy");
+
+        Date readDate = df.parse(date);
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(readDate.getTime());
+
+        String []month = {"Jan","Feb","Mar","April","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
+
+        return ("" +Calendar.DAY_OF_MONTH+ " " + month[Calendar.MONTH]);
+    }
+
+    String time_in_AM_PM(long mili)
+    {
+        Date dt = new Date(mili);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+        String time1 = sdf.format(dt);
+        return time1;
+    }
 
 }
