@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../layout/custom_preview.xml" value="0.10073999327278843" />
         <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/drawable/rounded_corner.xml" value="0.236" />
         <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/drawable/rounded_corner1.xml" value="0.236" />
         <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/drawable/rounded_corner2.xml" value="0.236" />
@@ -14,8 +15,10 @@
         <entry key="..\:/Users/HP/StudioProjects/Crex/app/src/main/res/layout/upcoming_list2.xml" value="0.24547101449275363" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3430084228515625" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.17147922998986828" />
+        <entry key="app/src/main/res/layout/finished_list.xml" value="0.39852190872487375" />
         <entry key="app/src/main/res/layout/fragment_finished.xml" value="0.2617753623188406" />
         <entry key="app/src/main/res/layout/fragment_upcoming.xml" value="0.2617753623188406" />
+        <entry key="app/src/main/res/layout/tv_upcoming_finished.xml" value="0.33229166666666665" />
         <entry key="app/src/main/res/layout/upcoming_list.xml" value="0.36575164794921877" />
         <entry key="app/src/main/res/layout/upcoming_list2.xml" value="0.28489583333333335" />
       </map>

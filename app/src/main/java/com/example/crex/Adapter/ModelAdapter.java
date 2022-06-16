@@ -1,9 +1,8 @@
-package com.example.crexproject.adapter;
+package com.example.crex.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +15,9 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.crexproject.R;
-import com.example.crexproject.models.Model;
+import com.example.crex.R;
+import com.example.crex.models.Model;
+
 
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -61,17 +61,17 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(viewType==LayoutOne)
         {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.match_club_date,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_list2,parent,false);
             return new ModelAdapter.ViewHolder(view);
         }
         else if(viewType==LayoutTwo)
         {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.match_details_temp,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_list,parent,false);
             return new ModelAdapter.ViewHolder(view);
         }
         else
         {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_finished_matches,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_upcoming_finished,parent,false);
             return new ModelAdapter.ViewHolder(view);
         }
     }
@@ -92,6 +92,7 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
             String date_temp = null;
             try {
                 date_temp = get_day_month_day(getModels.get(position).getClub_date());
+//                date_temp = getModels.get(position).getClub_date();
             } catch (ParseException e) {
                 e.printStackTrace();
             }
@@ -199,8 +200,8 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
 
         DateTime startDate = new DateTime(calendar.getTimeInMillis());
         DateTime today = new DateTime();
-        int days = Days.daysBetween(today.withTimeAtStartOfDay(), startDate.withTimeAtStartOfDay()).getDays();
 
+        int days = Days.daysBetween(today.withTimeAtStartOfDay(), startDate.withTimeAtStartOfDay()).getDays();
         String date;
         switch (days) {
             case -1: date = "Yesterday"; break;
@@ -274,7 +275,7 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
 
             tv_upcoming_finished = itemView.findViewById(R.id.tv_upcoming_finished);
 
-            cl_layout = itemView.findViewById(R.id.cl_layout);
+            cl_layout = itemView.findViewById(R.id.cl);
 
 
 

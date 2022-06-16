@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_corner"
+    android:layout_margin="@dimen/_5sdp"
+    android:padding="@dimen/_10sdp"
+    >
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_10sdp"
+        android:text="23rd T20 at Abudhabi Cricket Stadium"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:textColor="#9FA3A7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_team1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        android:background="@drawable/ic_baseline_outlined_flag_24" />
+
+
+    <TextView
+        android:id="@+id/tv_team1_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/iv_team1"
+        app:layout_constraintBottom_toBottomOf="@id/iv_team1"
+        app:layout_constraintStart_toEndOf="@id/iv_team1"
+        android:text="SL"
+        android:textColor="#CFD1D3"
+        android:layout_marginStart="@dimen/_6sdp"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/iv_team1"
+        app:layout_constraintBottom_toBottomOf="@id/iv_team1"
+        app:layout_constraintStart_toEndOf="@id/tv_team1_name"
+        android:text="156-5"
+        android:textColor="#CFD1D3"
+        android:layout_marginStart="@dimen/_8sdp"
+
+        />
+
+    <TextView
+        android:id="@+id/tv_overs1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/iv_team1"
+        app:layout_constraintBottom_toBottomOf="@id/iv_team1"
+        app:layout_constraintStart_toEndOf="@id/tv_score1"
+        android:text="20.0"
+        android:textColor="#CFD1D3"
+        android:layout_marginStart="@dimen/_4sdp"
+
+        />
+
+    <!--start-->
+
+    <ImageView
+        android:id="@+id/iv_team2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/iv_team1"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:background="@drawable/ic_baseline_outlined_flag_24" />
+
+    <TextView
+        android:id="@+id/tv_team2_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="SL"
+        android:textColor="#CFD1D3"
+        app:layout_constraintBottom_toBottomOf="@id/iv_team2"
+        app:layout_constraintStart_toEndOf="@id/iv_team2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_team1_name" />
+
+    <TextView
+        android:id="@+id/tv_score2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="156-5"
+        android:textColor="#CFD1D3"
+        app:layout_constraintBottom_toBottomOf="@id/tv_team2_name"
+        app:layout_constraintStart_toEndOf="@id/tv_team2_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_score1" />
+
+    <TextView
+        android:id="@+id/tv_overs2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_6sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="25.5"
+        android:textColor="#CFD1D3"
+        app:layout_constraintBottom_toBottomOf="@id/tv_score2"
+        app:layout_constraintStart_toEndOf="@id/tv_score2"
+        app:layout_constraintTop_toBottomOf="@+id/tv_score1" />
+
+
+
+    <TextView
+        android:id="@+id/tv_vertical_bar"
+        android:layout_width="@dimen/_2sdp"
+        android:layout_height="@dimen/_33sdp"
+        android:layout_marginStart="@dimen/_178sdp"
+        android:layout_marginTop="@dimen/_49sdp"
+        android:background="#24303D"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_time_tagWon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="AUS Won"
+        android:textColor="#D6D056"
+        android:textSize="@dimen/_13sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_vertical_bar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content" />
+
+    <TextView
+        android:id="@+id/tv_wonInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_time_tagWon"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="5 June"
+        android:textColor="#CFD1D3"
+        android:textSize="@dimen/_9sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_vertical_bar"
+        app:layout_constraintTop_toBottomOf="@+id/tv_time_tagWon" />
+
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

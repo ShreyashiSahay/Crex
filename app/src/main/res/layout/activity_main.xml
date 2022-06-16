@@ -17,13 +17,17 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/_12sdp"
+            android:layout_height="@dimen/_13sdp"
+            android:layout_marginLeft="@dimen/_19sdp"
+            android:layout_marginTop="@dimen/_9sdp"
             android:layout_weight="0.15"
             app:srcCompat="@drawable/cruxlogo" />
 
         <TextView
             android:id="@+id/textView2"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_9sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="6"
@@ -35,20 +39,9 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:layout_width="409dp"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/_17sdp"
         android:layout_height="wrap_content">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upcoming" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Finished" />
-
-
     </com.google.android.material.tabs.TabLayout>
 
 

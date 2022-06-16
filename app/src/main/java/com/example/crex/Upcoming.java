@@ -1,4 +1,4 @@
-package com.example.crexproject;
+package com.example.crex;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,8 +18,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.crexproject.adapter.ModelAdapter;
-import com.example.crexproject.models.Model;
+import com.example.crex.Adapter.ModelAdapter;
+import com.example.crex.R;
+import com.example.crex.models.Model;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,14 +47,14 @@ public class Upcoming extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_upcoming,container,false);
+        return inflater.inflate(R.layout.fragment_upcoming,container,false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        recyclerView = view.findViewById(R.id.rv_upcoming);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
         recyclerView.setHasFixedSize(true);
         mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());

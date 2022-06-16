@@ -1,4 +1,4 @@
-package com.example.crexproject.models;
+package com.example.crex.models;
 
 public class Model {
 

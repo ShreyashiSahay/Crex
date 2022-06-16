@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "376299184517",
+    "project_id": "crex-a42f7",
+    "storage_bucket": "crex-a42f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376299184517:android:dd8292ff8aa3a91563e4ec",
+        "android_client_info": {
+          "package_name": "com.example.crex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376299184517-lu8nb8a7m2uqqib1n9qb3epcp0armaip.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAUNasqrAeIqH7FUCzvc_Oru8Y1N4ns9xg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376299184517-lu8nb8a7m2uqqib1n9qb3epcp0armaip.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

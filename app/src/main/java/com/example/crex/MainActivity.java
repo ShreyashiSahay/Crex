@@ -27,8 +27,10 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 
         VPAdapter vpAdapter= new VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+
+
+        vpAdapter.addFragment(new Upcoming(),"Upcoming  ");
         vpAdapter.addFragment(new Finished(),"Finished");
-        vpAdapter.addFragment(new Upcoming(),"Upcoming");
 
         viewPager.setAdapter(vpAdapter);
 
