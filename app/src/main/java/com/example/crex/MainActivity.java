@@ -19,9 +19,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 arrayList.clear();
                 arraylist2.clear();
 
-                HashMap<String, List<Model2>> hashMapFinished = new HashMap<>();
-                HashMap<String, List<Model>> hashMapUpcoming = new HashMap<>();
+                TreeMap<String, List<Model2>> hashMapFinished = new TreeMap<>();
+                TreeMap<String, List<Model>> hashMapUpcoming = new TreeMap<>();
 
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -99,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
                         Model2 tempFinishedModels = new Model2(1, t1, t2, t1_flag, t2_flag, match_no, score1, score2, overs1, overs2, winner, result);
 
                         //Log.d(TAG, "onDataChange: "+get_day_month_day(club_date));
+
                         if (hashMapFinished.get(club_date) == null) {
                             hashMapFinished.put(club_date, new ArrayList<>());
                         }
@@ -141,6 +146,12 @@ public class MainActivity extends AppCompatActivity {
 
                 for (String key : hashMapUpcoming.keySet()) {
                     List<Model> newModels = hashMapUpcoming.get(key);
+                    Collections.sort(newModels, new Comparator<Model>() {
+                        @Override
+                        public int compare(Model o1, Model o2) {
+                            return o1.getTime_stamp().compareTo(o2.getTime_stamp());
+                        }
+                    });
                     Log.d(TAG, "onDataChange: "+key);
                     arrayList.add(new Model(0, key));
                     //                        Log.d(TAG, "onDataChange: "+newModels.get(i).getT1Flag());
