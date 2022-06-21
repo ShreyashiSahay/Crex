@@ -40,9 +40,13 @@ public class Upcoming extends Fragment {
     private static final String TAG = "Upcoming";
 
     private RecyclerView recyclerView;
-    private List<Model> getModels = new ArrayList<>();
+    private final List<Model> getModels;
     private ModelAdapter modelAdapter;
     private RequestQueue mRequestQueue;
+
+    public Upcoming(ArrayList<Model> arrayList) {
+        getModels = arrayList;
+    }
 
     @Nullable
     @Override
@@ -59,7 +63,11 @@ public class Upcoming extends Fragment {
         recyclerView.setHasFixedSize(true);
         mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        fetchJSON_data();
+        //fetchJSON_data();
+
+        modelAdapter = new ModelAdapter(getContext(), getModels);
+        recyclerView.setAdapter(modelAdapter);
+        modelAdapter.notifyDataSetChanged();
 
     }
 

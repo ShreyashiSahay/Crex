@@ -2,7 +2,7 @@ package com.example.crex.models;
 
 public class Model {
 
-    public String club_date,team1,team2,t1Flag,t2Flag,match_no,match_date,time_stamp;
+    public String club_date,team1,team2,t1Flag,t2Flag,match_no,time_stamp,match_date;
     public String odds_rate,odds_rate2,rate_team;
 
     private int viewType;
@@ -25,7 +25,7 @@ public class Model {
         this.viewType = viewType;
     }
 
-    public Model(int viewType, int odds, String team1, String team2, String t1Flag, String t2Flag, String match_no, String match_date, String time_stamp, String odds_rate, String odds_rate2, String rate_team) {
+    public Model(int viewType, int odds, String team1, String team2, String t1Flag, String t2Flag, String match_no, String club_date, String time_stamp, String odds_rate, String odds_rate2, String rate_team) {
         this.viewType = viewType;
         this.odds = odds;
         this.team1 = team1;
@@ -33,14 +33,14 @@ public class Model {
         this.t1Flag = t1Flag;
         this.t2Flag = t2Flag;
         this.match_no = match_no;
-        this.match_date = match_date;
+        this.club_date = club_date;
         this.time_stamp = time_stamp;
         this.odds_rate = odds_rate;
         this.odds_rate2 = odds_rate2;
         this.rate_team = rate_team;
     }
 
-    public Model(int viewType, int odds, String team1, String team2, String t1Flag, String t2Flag, String match_no, String match_date, String time_stamp) {
+    public Model(int viewType, int odds, String team1, String team2, String t1Flag, String t2Flag, String match_no, String club_date, String time_stamp) {
         this.viewType = viewType;
         this.odds = odds;
         this.team1 = team1;
@@ -48,7 +48,7 @@ public class Model {
         this.t1Flag = t1Flag;
         this.t2Flag = t2Flag;
         this.match_no = match_no;
-        this.match_date = match_date;
+        this.club_date = club_date;
         this.time_stamp = time_stamp;
     }
 

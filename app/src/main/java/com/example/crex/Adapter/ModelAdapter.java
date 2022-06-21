@@ -3,6 +3,7 @@ package com.example.crex.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> {
@@ -44,9 +46,8 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
     }
 
     @Override
-    public int getItemViewType(int position)
-    {
-        if(position==getModels.size())
+    public int getItemViewType(int position) {
+        if (position == getModels.size())
             return LayoutThree;
         else if (getModels.get(position).getViewType() == 0) {
             return LayoutOne;
@@ -59,19 +60,14 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if(viewType==LayoutOne)
-        {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_list2,parent,false);
+        if (viewType == LayoutOne) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_list2, parent, false);
             return new ModelAdapter.ViewHolder(view);
-        }
-        else if(viewType==LayoutTwo)
-        {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_list,parent,false);
+        } else if (viewType == LayoutTwo) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_list, parent, false);
             return new ModelAdapter.ViewHolder(view);
-        }
-        else
-        {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_upcoming_finished,parent,false);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tv_upcoming_finished, parent, false);
             return new ModelAdapter.ViewHolder(view);
         }
     }
@@ -79,16 +75,13 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if(position==getModels.size())
-        {
+        if (position == getModels.size()) {
             holder.tv_upcoming_finished.setText("All Upcoming Matches");
             holder.cl_layout.setOnClickListener(v -> {
 //                Log.d("PressedC", "onClick pressed ");
-                Toast.makeText(v.getContext(), "Open All Upcoming Matches",Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(), "Open All Upcoming Matches", Toast.LENGTH_SHORT).show();
             });
-        }
-        else if(getModels.get(position).getViewType()==LayoutOne)
-        {
+        } else if (getModels.get(position).getViewType() == LayoutOne) {
             String date_temp = null;
             try {
                 date_temp = get_day_month_day(getModels.get(position).getClub_date());
@@ -97,42 +90,36 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
                 e.printStackTrace();
             }
             holder.tv_matchDate.setText(date_temp);
-        }
-        else
-        {
-            holder.tv_content.setText(getModels.get(position).getMatch_no()+" at Sharjah International Ground");
+        } else {
+            holder.tv_content.setText(getModels.get(position).getMatch_no() + " at Sharjah International Ground");
             holder.tv_team1_name.setText(getModels.get(position).getTeam1());
             holder.tv_team2_name.setText(getModels.get(position).getTeam2());
             String time_tag = (getModels.get(position).getTime_stamp());
 
-            try {
-                if(check_Within_three_Hours(time_tag))
-                {
-                    holder.tv_time_tagWon.setText("Strating in:");
-                    long temp_time = Long.parseLong(getModels.get(position).getMatch_date());
 
-                    CountDownTimer countDownTimer = new CountDownTimer(temp_time, 1000) {
-                        public void onTick(long millisUntilFinished) {
-                            //Convert milliseconds into hour,minute and seconds
-                            @SuppressLint("DefaultLocale") String hms = String.format("%02d:%02d:%02d",
-                                    TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)), TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
-                            holder.tv_date_run.setText(hms);//set text
-                        }
+            if (check_Within_three_Hours(time_tag)) {
+                holder.tv_time_tagWon.setText("Starting in:");
+                long temp_time = Long.parseLong(getModels.get(position).getTime_stamp());
+                long curr = System.currentTimeMillis();
+                long rem = temp_time-curr;
+                CountDownTimer countDownTimer = new CountDownTimer(rem, 1000) {
+                    public void onTick(long millisUntilFinished) {
+                        //Convert milliseconds into hour,minute and seconds
+                        @SuppressLint("DefaultLocale") String hms = String.format("%02d:%02d:%02d",
+                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
+                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)), TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
+                        holder.tv_date_run.setText(hms);//set text
+                    }
 
-                        public void onFinish() {
-                            holder.tv_date_run.setText("TIME'S UP!!"); //On finish change timer text
-                        }
-                    }.start();
+                    public void onFinish() {
+                        holder.tv_date_run.setText("TIME'S UP!!"); //On finish change timer text
+                    }
+                };
+                countDownTimer.start();
 
-                }
-                else
-                {
-                    holder.tv_time_tagWon.setText(((getModels.get(position).getTime_stamp())));
-                    holder.tv_date_run.setText((getModels.get(position).getMatch_date()));
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
+            } else {
+                holder.tv_time_tagWon.setText(time_in_AM_PM(Long.parseLong((getModels.get(position).getTime_stamp()))));
+                holder.tv_date_run.setText(get_day_month(getModels.get(position).getClub_date()));
             }
 //            holder.iv_team1.setImageResource(android.R.color.transparent);
 //            holder.iv_team2.setImageResource(android.R.color.transparent);
@@ -155,15 +142,12 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
 //                    .placeholder(holder.iv_team2.getDrawable() != null ? holder.iv_team2.getDrawable() : null)
 //                    .into(holder.iv_team2);
 
-            if(getModels.get(position).getOdds()==0)
-            {
+            if (getModels.get(position).getOdds() == 0) {
                 holder.ll_horizontal_bar.setVisibility(View.GONE);
                 holder.rate.setVisibility(View.GONE);
                 holder.rate2.setVisibility(View.GONE);
                 holder.rate_team.setVisibility(View.GONE);
-            }
-            else
-            {
+            } else {
                 holder.ll_horizontal_bar.setVisibility(View.VISIBLE);
                 holder.rate.setVisibility(View.VISIBLE);
                 holder.rate2.setVisibility(View.VISIBLE);
@@ -176,16 +160,42 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
         }
 
 
+    }
 
+    public static String get_day_month(String dateStr) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd MMM");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat TIME_FORMAT = new SimpleDateFormat(" 'at' h:mm aa");
+
+        SimpleDateFormat curFormater = new SimpleDateFormat("dd/MM/yyyy");
+
+        Calendar calendar = Calendar.getInstance();
+
+        try {
+            calendar.setTime(Objects.requireNonNull(curFormater.parse(dateStr)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        String date = DATE_FORMAT.format(calendar.getTime());
+
+        return date;
     }
 
 
-    private boolean check_Within_three_Hours(String time_tag) throws ParseException {
+    private boolean check_Within_three_Hours(String time_tag){
 
-        DateFormat formatter = new SimpleDateFormat("hh:mm:ss a");
-        Date date = (Date)formatter.parse(time_tag);
         final long DAY = 3 * 60 * 60 * 1000;
-        return date.getTime() > System.currentTimeMillis() - DAY;
+        Log.d("TAGGG", "check_Within_three_Hours: "+time_tag);
+        return ((Long.parseLong(time_tag) - System.currentTimeMillis())/(1000*60*60))<(3) && ((Long.parseLong(time_tag) > System.currentTimeMillis()));
+    }
+
+
+    String time_in_AM_PM(long mili)
+    {
+        Date dt = new Date(mili);
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa");
+        String time1 = sdf.format(dt);
+        return time1;
     }
 
     public static String get_day_month_day(String dateStr) throws ParseException {
@@ -204,52 +214,59 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
         int days = Days.daysBetween(today.withTimeAtStartOfDay(), startDate.withTimeAtStartOfDay()).getDays();
         String date;
         switch (days) {
-            case -1: date = "Yesterday"; break;
-            case 0: date = "Today"; break;
-            case 1: date = "Tomorrow"; break;
-            default: date = DATE_FORMAT.format(calendar.getTime()); break;
+            case -1:
+                date = "Yesterday";
+                break;
+            case 0:
+                date = "Today";
+                break;
+            case 1:
+                date = "Tomorrow";
+                break;
+            default:
+                date = DATE_FORMAT.format(calendar.getTime());
+                break;
         }
 
         String day;
-        switch (calendar.get(Calendar.DAY_OF_MONTH))
-        {
-            case 1 :
+        switch (calendar.get(Calendar.DAY_OF_WEEK)) {
+            case 1:
                 day = "Sunday";
                 break;
-            case 2 :
+            case 2:
                 day = "Monday";
                 break;
-            case 3 :
+            case 3:
                 day = "Tuesday";
                 break;
-            case 4 :
+            case 4:
                 day = "Wednesday";
                 break;
-            case 5 :
+            case 5:
                 day = "Thursday";
                 break;
-            case 6 :
+            case 6:
                 day = "Friday";
                 break;
-            case 7 :
+            case 7:
                 day = "Saturday";
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + calendar.get(Calendar.DAY_OF_MONTH));
         }
-        return day+", "+date;
+        return day + ", " + date;
     }
 
     @Override
     public int getItemCount() {
-        return getModels.size()+1;
+        return getModels.size() + 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_matchDate,tv_content,tv_team1_name,tv_team2_name,tv_time_tagWon,tv_date_run,rate,rate2,rate_team;
-        ImageView iv_team1,iv_team2;
-        TextView ll_horizontal_bar,odds;
+        TextView tv_matchDate, tv_content, tv_team1_name, tv_team2_name, tv_time_tagWon, tv_date_run, rate, rate2, rate_team;
+        ImageView iv_team1, iv_team2;
+        TextView ll_horizontal_bar, odds;
         TextView tv_upcoming_finished;
         ConstraintLayout cl_layout;
 
@@ -278,12 +295,9 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
             cl_layout = itemView.findViewById(R.id.cl);
 
 
-
         }
 
     }
-
-
 
 
 }

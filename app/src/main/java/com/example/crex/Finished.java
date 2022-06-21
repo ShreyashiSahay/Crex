@@ -40,10 +40,13 @@ public class Finished extends Fragment {
     private static final String TAG = "Finished";
 
     private RecyclerView recyclerView;
-    private final List<Model2> getModels = new ArrayList<>();
+    private final List<Model2> getModels;
     private ModelAdapter2 modelAdapter;
     private RequestQueue mRequestQueue;
 
+    public Finished(ArrayList<Model2> arraylist2) {
+        getModels = arraylist2;
+    }
 
 
     @Override
@@ -62,7 +65,13 @@ public class Finished extends Fragment {
         recyclerView.setHasFixedSize(true);
         mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
 
-        fetchJSON_data();
+//        fetchJSON_data();
+
+
+        modelAdapter = new ModelAdapter2(getContext(), getModels);
+        recyclerView.setAdapter(modelAdapter);
+        modelAdapter.notifyDataSetChanged();
+
     }
 
 
