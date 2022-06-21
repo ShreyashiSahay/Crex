@@ -102,20 +102,15 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
                 long temp_time = Long.parseLong(getModels.get(position).getTime_stamp());
                 long curr = System.currentTimeMillis();
                 long rem = temp_time-curr;
-                CountDownTimer countDownTimer = new CountDownTimer(rem, 1000) {
-                    public void onTick(long millisUntilFinished) {
-                        //Convert milliseconds into hour,minute and seconds
-                        @SuppressLint("DefaultLocale") String hms = String.format("%02d:%02d:%02d",
-                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)), TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)));
-                        holder.tv_date_run.setText(hms);//set text
-                    }
+                if(rem<=0){
+                    holder.tv_date_run.setText("MATCH LIVE");
+                }
 
-                    public void onFinish() {
-                        holder.tv_date_run.setText("TIME'S UP!!"); //On finish change timer text
-                    }
-                };
-                countDownTimer.start();
+                @SuppressLint("DefaultLocale") String hms = String.format("%02d:%02d:%02d",
+                        TimeUnit.MILLISECONDS.toHours(rem),
+                        TimeUnit.MILLISECONDS.toMinutes(rem) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(rem)), TimeUnit.MILLISECONDS.toSeconds(rem) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(rem)));
+                holder.tv_date_run.setText(hms);//set text
+
 
             } else {
                 holder.tv_time_tagWon.setText(time_in_AM_PM(Long.parseLong((getModels.get(position).getTime_stamp()))));

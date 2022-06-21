@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Upcoming extends Fragment {
 
@@ -43,6 +45,8 @@ public class Upcoming extends Fragment {
     private final List<Model> getModels;
     private ModelAdapter modelAdapter;
     private RequestQueue mRequestQueue;
+    private Timer mTimer1;
+    private TimerTask mTt1;
 
     public Upcoming(ArrayList<Model> arrayList) {
         getModels = arrayList;
@@ -67,7 +71,25 @@ public class Upcoming extends Fragment {
 
         modelAdapter = new ModelAdapter(getContext(), getModels);
         recyclerView.setAdapter(modelAdapter);
-        modelAdapter.notifyDataSetChanged();
+
+
+        mTimer1= new Timer();
+        mTt1 = new TimerTask() {
+            @Override
+            public void run() {
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        modelAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        };
+
+        mTimer1.schedule(mTt1, 1,1000);
+
+
+
 
     }
 
