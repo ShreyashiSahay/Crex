@@ -2,11 +2,11 @@ package com.example.crex.models;
 
 public class Model2 {
 
-    public String club_date,team1,team2,t1Flag,t2Flag,match_no, score1,score2, overs1, overs2, winner, winnerInfo;
+    public String club_date,team1,team2,t1Flag,t2Flag,match_no, score1,score2, overs1, overs2, winner, winnerInfo, time_stamp;
     private int viewType;
 
 
-    public Model2(int viewType, String team1, String team2, String t1Flag, String t2Flag, String match_no, String score1, String score2, String overs1, String overs2, String winner, String winnerInfo) {
+    public Model2(int viewType,String club_date, String team1, String team2, String t1Flag, String t2Flag, String match_no, String score1, String score2, String overs1, String overs2, String winner, String winnerInfo, String time_stamp) {
         this.viewType = viewType;
         this.team1 = team1;
         this.team2 = team2;
@@ -19,6 +19,9 @@ public class Model2 {
         this.overs2 = overs2;
         this.winner = winner;
         this.winnerInfo = winnerInfo;
+        this.time_stamp = time_stamp;
+        this.club_date = club_date;
+
 
     }
 
@@ -27,6 +30,13 @@ public class Model2 {
         this.club_date = club_date;
     }
 
+    public String getTime_stamp() {
+        return time_stamp;
+    }
+
+    public void setTime_stamp(String time_stamp) {
+        this.time_stamp = time_stamp;
+    }
 
     public String getClub_date() {
         return club_date;

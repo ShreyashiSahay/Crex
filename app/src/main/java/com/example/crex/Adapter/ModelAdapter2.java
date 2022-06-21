@@ -96,13 +96,7 @@ public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         }
         else if(getModels.get(position).getViewType()==LayoutOne)
         {
-        String date_temp = null;
-            try {
-                date_temp = get_day_month_day(getModels.get(position).getClub_date());
-//        date_temp = getModels.get(position).getClub_date();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        String date_temp = get_day_month_day(getModels.get(position).getClub_date());
         holder.tv_matchDate.setText(date_temp);
         }
         else
@@ -185,13 +179,19 @@ final long DAY = 3 * 60 * 60 * 1000;
         return date.getTime() > System.currentTimeMillis() - DAY;
         }*/
 
-    public static String get_day_month_day(String dateStr) throws ParseException {
+    public static String get_day_month_day(String dateStr){
         SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd MMMM");
         SimpleDateFormat TIME_FORMAT = new SimpleDateFormat(" 'at' h:mm aa");
 
 
         SimpleDateFormat curFormater = new SimpleDateFormat("dd/MM/yyyy");
-        Date dateObj = curFormater.parse(dateStr);
+        Date dateObj = null;
+        try {
+            dateObj = curFormater.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateObj);
 

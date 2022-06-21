@@ -18,7 +18,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -75,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
                 TreeMap<String, List<Model2>> hashMapFinished = new TreeMap<>();
                 TreeMap<String, List<Model>> hashMapUpcoming = new TreeMap<>();
+                String dateTime;
 
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -100,14 +104,17 @@ public class MainActivity extends AppCompatActivity {
                         String score2 = ds.child(Groupin.SCORE2).getValue().toString();
                         //Log.d(TAG, "onDataChange: "+score1+" "+score2);
 
-                        Model2 tempFinishedModels = new Model2(1, t1, t2, t1_flag, t2_flag, match_no, score1, score2, overs1, overs2, winner, result);
+                        Model2 tempFinishedModels = new Model2(1,club_date, t1, t2, t1_flag, t2_flag, match_no, score1, score2, overs1, overs2, winner, result, time_stamp);
 
                         //Log.d(TAG, "onDataChange: "+get_day_month_day(club_date));
 
-                        if (hashMapFinished.get(club_date) == null) {
-                            hashMapFinished.put(club_date, new ArrayList<>());
+
+
+                        dateTime = dateToTime(club_date);
+                        if (hashMapFinished.get(dateTime) == null) {
+                            hashMapFinished.put(dateTime, new ArrayList<>());
                         }
-                        hashMapFinished.get(club_date).add(tempFinishedModels);
+                        hashMapFinished.get(dateTime).add(tempFinishedModels);
                     } else {
 
                         String club_date = ds.child(Groupin.CLUBDATE).getValue().toString();
@@ -118,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         String time_stamp = ds.child(Groupin.TIME).getValue().toString();
                         String t1_flag = ds.child(Groupin.IMAGE1).getValue().toString();
                         String t2_flag = ds.child(Groupin.IMAGE2).getValue().toString();
+                        dateTime = dateToTime(club_date);
                         if (ds.hasChild("odds")) {
 //                            Log.d(TAG, "onDataChange: odds");
                             String rate1 = ds.child(Groupin.ODDS).child(Groupin.RATE).getValue().toString();
@@ -125,17 +133,18 @@ public class MainActivity extends AppCompatActivity {
                             String rate_team = ds.child(Groupin.ODDS).child(Groupin.RATE_TEAM).getValue().toString();
 
                             Model tempUpcoming = (new Model(1, 1, t1, t2, t1_flag, t2_flag, match_no, (club_date), (time_stamp), rate1, rate2, rate_team));
-                            if (hashMapUpcoming.get(club_date) == null) {
-                                hashMapUpcoming.put(club_date, new ArrayList<>());
+
+                            if (hashMapUpcoming.get(dateTime) == null) {
+                                hashMapUpcoming.put(dateTime, new ArrayList<>());
                             }
-                            hashMapUpcoming.get(club_date).add(tempUpcoming);
+                            hashMapUpcoming.get(dateTime).add(tempUpcoming);
                         } else {
 //                            Log.d(TAG, "onDataChange: kxmsx");
                             Model tempUpcoming = (new Model(1, 0, t1, t2, t1_flag, t2_flag, match_no, (club_date), (time_stamp)));
-                            if (hashMapUpcoming.get(club_date) == null) {
-                                hashMapUpcoming.put(club_date, new ArrayList<>());
+                            if (hashMapUpcoming.get(dateTime) == null) {
+                                hashMapUpcoming.put(dateTime, new ArrayList<>());
                             }
-                            hashMapUpcoming.get(club_date).add(tempUpcoming);
+                            hashMapUpcoming.get(dateTime).add(tempUpcoming);
                         }
 
 
@@ -153,14 +162,21 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     Log.d(TAG, "onDataChange: "+key);
-                    arrayList.add(new Model(0, key));
+                    arrayList.add(new Model(0, newModels.get(0).getClub_date()));
                     //                        Log.d(TAG, "onDataChange: "+newModels.get(i).getT1Flag());
                     arrayList.addAll(newModels);
                 }
 
                 for (String key : hashMapFinished.keySet()) {
                     List<Model2> newModels = hashMapFinished.get(key);
-                    arraylist2.add(new Model2(0, key));
+
+                    Collections.sort(newModels, new Comparator<Model2>() {
+                        @Override
+                        public int compare(Model2 o1, Model2 o2) {
+                            return o1.getTime_stamp().compareTo(o2.getTime_stamp());
+                        }
+                    });
+                    arraylist2.add(new Model2(0, newModels.get(0).getClub_date()));
                     arraylist2.addAll(newModels);
                 }
 
@@ -175,6 +191,18 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         usersRef.addValueEventListener(valueEventListener);
+    }
+
+    String dateToTime(String dates){
+        SimpleDateFormat sdf= new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        try{
+            calendar.setTime(Objects.requireNonNull(sdf.parse(dates)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return String.valueOf(calendar.getTimeInMillis());
     }
 
     public void init() {

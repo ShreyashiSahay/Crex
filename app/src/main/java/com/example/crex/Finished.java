@@ -75,62 +75,62 @@ public class Finished extends Fragment {
     }
 
 
-    private void fetchJSON_data() {
-
-        JsonArrayRequest requestQueue = new JsonArrayRequest(Request.Method.GET, URL_API_FINISHED, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-
-                            for (int i = 0; i < response.length(); i++) {
-
-                                JSONObject fields = response.getJSONObject(i);
-                                JSONArray matches = fields.getJSONArray("m");
-                                String club_date = fields.getString("date");
-                                getModels.add(new Model2(0,club_date));
-
-                                for(int j=0;j<matches.length();j++)
-                                {
-                                    JSONObject temp = matches.getJSONObject(j);
-
-                                    String t1 = temp.getString("t1");
-                                    String t2 = temp.getString("t2");
-                                    String t1flag = temp.getString("t1flag");
-                                    String t2flag = temp.getString("t2flag");
-                                    String match_no = temp.getString("match_no");
-                                    String score1= temp.getString("score1");
-                                    String score2= temp.getString("score2");
-                                    String overs1= temp.getString("overs1");
-                                    String overs2 = temp.getString("overs2");
-                                    String winner= temp.getString("winner");
-                                    String winnerInfo= temp.getString("result");
-
-                                        getModels.add(new Model2(1, t1, t2, t1flag, t2flag, match_no, score1, score2, overs1, overs2, winner, winnerInfo));
-
-
-
-                                }
-
-
-                            }
-
-                            modelAdapter = new ModelAdapter2(getContext(), getModels);
-                            recyclerView.setAdapter(modelAdapter);
-                            modelAdapter.notifyDataSetChanged();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "onErrorResponse: " + error.getMessage());
-            }
-        });
-        mRequestQueue.add(requestQueue);
-
-
-    }
+//    private void fetchJSON_data() {
+//
+//        JsonArrayRequest requestQueue = new JsonArrayRequest(Request.Method.GET, URL_API_FINISHED, null,
+//                new Response.Listener<JSONArray>() {
+//                    @Override
+//                    public void onResponse(JSONArray response) {
+//                        try {
+//
+//                            for (int i = 0; i < response.length(); i++) {
+//
+//                                JSONObject fields = response.getJSONObject(i);
+//                                JSONArray matches = fields.getJSONArray("m");
+//                                String club_date = fields.getString("date");
+//                                getModels.add(new Model2(0,club_date));
+//
+//                                for(int j=0;j<matches.length();j++)
+//                                {
+//                                    JSONObject temp = matches.getJSONObject(j);
+//
+//                                    String t1 = temp.getString("t1");
+//                                    String t2 = temp.getString("t2");
+//                                    String t1flag = temp.getString("t1flag");
+//                                    String t2flag = temp.getString("t2flag");
+//                                    String match_no = temp.getString("match_no");
+//                                    String score1= temp.getString("score1");
+//                                    String score2= temp.getString("score2");
+//                                    String overs1= temp.getString("overs1");
+//                                    String overs2 = temp.getString("overs2");
+//                                    String winner= temp.getString("winner");
+//                                    String winnerInfo= temp.getString("result");
+//
+//                                        getModels.add(new Model2(1, t1, t2, t1flag, t2flag, match_no, score1, score2, overs1, overs2, winner, winnerInfo,));
+//
+//
+//
+//                                }
+//
+//
+//                            }
+//
+//                            modelAdapter = new ModelAdapter2(getContext(), getModels);
+//                            recyclerView.setAdapter(modelAdapter);
+//                            modelAdapter.notifyDataSetChanged();
+//
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d(TAG, "onErrorResponse: " + error.getMessage());
+//            }
+//        });
+//        mRequestQueue.add(requestQueue);
+//
+//
+//    }
 }
