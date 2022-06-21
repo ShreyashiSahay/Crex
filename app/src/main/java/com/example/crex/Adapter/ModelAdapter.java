@@ -112,7 +112,7 @@ public class ModelAdapter extends RecyclerView.Adapter<ModelAdapter.ViewHolder> 
                     }
 
                     public void onFinish() {
-                        holder.tv_date_run.setText("TIME'S UP!!"); //On finish change timer text
+                        holder.tv_date_run.setText("Match Done!!"); //On finish change timer text
                     }
                 };
                 countDownTimer.start();
