@@ -73,20 +73,8 @@ public class Upcoming extends Fragment {
         recyclerView.setAdapter(modelAdapter);
 
 
-        mTimer1= new Timer();
-        mTt1 = new TimerTask() {
-            @Override
-            public void run() {
-                requireActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        modelAdapter.notifyDataSetChanged();
-                    }
-                });
-            }
-        };
 
-        mTimer1.schedule(mTt1, 1,1000);
+
 
 
 
@@ -179,4 +167,50 @@ public class Upcoming extends Fragment {
         return time1;
     }
 
+
+
+
+    private void setTimer() {
+
+        mTimer1= new Timer();
+        mTt1 = new TimerTask() {
+            @Override
+            public void run() {
+                requireActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        modelAdapter.notifyDataSetChanged();
+                    }
+                });
+            }
+        };
+
+        mTimer1.schedule(mTt1, 1,1000);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        setTimer();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(mTimer1!=null){
+            mTimer1.cancel();
+            mTimer1.purge();
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        if(mTimer1!=null){
+            mTimer1.cancel();
+            mTimer1.purge();
+        }
+    }
 }
